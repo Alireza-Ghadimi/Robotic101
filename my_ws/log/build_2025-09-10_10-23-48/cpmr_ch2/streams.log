@@ -1,0 +1,54 @@
+[0.728s] Invoking command in '/home/common/Documents/argh/my_ws/src/cpmr_ch2': PYTHONPATH=/home/common/Documents/argh/my_ws/build/cpmr_ch2/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/common/Documents/argh/my_ws/install/cpmr_ch2/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/cpmr_ch2 build --build-base /home/common/Documents/argh/my_ws/build/cpmr_ch2/build install --record /home/common/Documents/argh/my_ws/build/cpmr_ch2/install.log --single-version-externally-managed install_data
+[1.028s] running egg_info
+[1.028s] creating ../../build/cpmr_ch2/cpmr_ch2.egg-info
+[1.029s] writing ../../build/cpmr_ch2/cpmr_ch2.egg-info/PKG-INFO
+[1.029s] writing dependency_links to ../../build/cpmr_ch2/cpmr_ch2.egg-info/dependency_links.txt
+[1.029s] writing entry points to ../../build/cpmr_ch2/cpmr_ch2.egg-info/entry_points.txt
+[1.030s] writing requirements to ../../build/cpmr_ch2/cpmr_ch2.egg-info/requires.txt
+[1.034s] writing top-level names to ../../build/cpmr_ch2/cpmr_ch2.egg-info/top_level.txt
+[1.038s] writing manifest file '../../build/cpmr_ch2/cpmr_ch2.egg-info/SOURCES.txt'
+[1.039s] reading manifest file '../../build/cpmr_ch2/cpmr_ch2.egg-info/SOURCES.txt'
+[1.039s] writing manifest file '../../build/cpmr_ch2/cpmr_ch2.egg-info/SOURCES.txt'
+[1.039s] running build
+[1.039s] running build_py
+[1.039s] creating /home/common/Documents/argh/my_ws/build/cpmr_ch2/build
+[1.039s] creating /home/common/Documents/argh/my_ws/build/cpmr_ch2/build/lib
+[1.039s] creating /home/common/Documents/argh/my_ws/build/cpmr_ch2/build/lib/cpmr_ch2
+[1.039s] copying cpmr_ch2/add_obstacle.py -> /home/common/Documents/argh/my_ws/build/cpmr_ch2/build/lib/cpmr_ch2
+[1.039s] copying cpmr_ch2/build_map.py -> /home/common/Documents/argh/my_ws/build/cpmr_ch2/build/lib/cpmr_ch2
+[1.039s] copying cpmr_ch2/__init__.py -> /home/common/Documents/argh/my_ws/build/cpmr_ch2/build/lib/cpmr_ch2
+[1.039s] copying cpmr_ch2/destroy_map.py -> /home/common/Documents/argh/my_ws/build/cpmr_ch2/build/lib/cpmr_ch2
+[1.039s] copying cpmr_ch2/drive_to_goal.py -> /home/common/Documents/argh/my_ws/build/cpmr_ch2/build/lib/cpmr_ch2
+[1.039s] running install
+[1.039s] running install_lib
+[1.039s] creating /home/common/Documents/argh/my_ws/install/cpmr_ch2/lib/python3.10/site-packages/cpmr_ch2
+[1.039s] copying /home/common/Documents/argh/my_ws/build/cpmr_ch2/build/lib/cpmr_ch2/add_obstacle.py -> /home/common/Documents/argh/my_ws/install/cpmr_ch2/lib/python3.10/site-packages/cpmr_ch2
+[1.039s] copying /home/common/Documents/argh/my_ws/build/cpmr_ch2/build/lib/cpmr_ch2/build_map.py -> /home/common/Documents/argh/my_ws/install/cpmr_ch2/lib/python3.10/site-packages/cpmr_ch2
+[1.040s] copying /home/common/Documents/argh/my_ws/build/cpmr_ch2/build/lib/cpmr_ch2/__init__.py -> /home/common/Documents/argh/my_ws/install/cpmr_ch2/lib/python3.10/site-packages/cpmr_ch2
+[1.040s] copying /home/common/Documents/argh/my_ws/build/cpmr_ch2/build/lib/cpmr_ch2/destroy_map.py -> /home/common/Documents/argh/my_ws/install/cpmr_ch2/lib/python3.10/site-packages/cpmr_ch2
+[1.040s] copying /home/common/Documents/argh/my_ws/build/cpmr_ch2/build/lib/cpmr_ch2/drive_to_goal.py -> /home/common/Documents/argh/my_ws/install/cpmr_ch2/lib/python3.10/site-packages/cpmr_ch2
+[1.042s] byte-compiling /home/common/Documents/argh/my_ws/install/cpmr_ch2/lib/python3.10/site-packages/cpmr_ch2/add_obstacle.py to add_obstacle.cpython-310.pyc
+[1.043s] byte-compiling /home/common/Documents/argh/my_ws/install/cpmr_ch2/lib/python3.10/site-packages/cpmr_ch2/build_map.py to build_map.cpython-310.pyc
+[1.043s] byte-compiling /home/common/Documents/argh/my_ws/install/cpmr_ch2/lib/python3.10/site-packages/cpmr_ch2/__init__.py to __init__.cpython-310.pyc
+[1.045s] byte-compiling /home/common/Documents/argh/my_ws/install/cpmr_ch2/lib/python3.10/site-packages/cpmr_ch2/destroy_map.py to destroy_map.cpython-310.pyc
+[1.046s] byte-compiling /home/common/Documents/argh/my_ws/install/cpmr_ch2/lib/python3.10/site-packages/cpmr_ch2/drive_to_goal.py to drive_to_goal.cpython-310.pyc
+[1.047s] running install_data
+[1.047s] creating /home/common/Documents/argh/my_ws/install/cpmr_ch2/share/ament_index
+[1.048s] creating /home/common/Documents/argh/my_ws/install/cpmr_ch2/share/ament_index/resource_index
+[1.048s] creating /home/common/Documents/argh/my_ws/install/cpmr_ch2/share/ament_index/resource_index/packages
+[1.048s] copying resource/cpmr_ch2 -> /home/common/Documents/argh/my_ws/install/cpmr_ch2/share/ament_index/resource_index/packages
+[1.048s] copying package.xml -> /home/common/Documents/argh/my_ws/install/cpmr_ch2/share/cpmr_ch2
+[1.048s] copying launch/destroy_map.launch.py -> /home/common/Documents/argh/my_ws/install/cpmr_ch2/share/cpmr_ch2
+[1.048s] copying launch/drive_robot.launch.py -> /home/common/Documents/argh/my_ws/install/cpmr_ch2/share/cpmr_ch2
+[1.049s] copying launch/gazebo.launch.py -> /home/common/Documents/argh/my_ws/install/cpmr_ch2/share/cpmr_ch2
+[1.049s] copying launch/build_map.launch.py -> /home/common/Documents/argh/my_ws/install/cpmr_ch2/share/cpmr_ch2
+[1.049s] copying maps/default.json -> /home/common/Documents/argh/my_ws/install/cpmr_ch2/share/cpmr_ch2
+[1.049s] running install_egg_info
+[1.053s] Copying ../../build/cpmr_ch2/cpmr_ch2.egg-info to /home/common/Documents/argh/my_ws/install/cpmr_ch2/lib/python3.10/site-packages/cpmr_ch2-3.1.0-py3.10.egg-info
+[1.059s] running install_scripts
+[1.081s] Installing add_obstacle script to /home/common/Documents/argh/my_ws/install/cpmr_ch2/lib/cpmr_ch2
+[1.082s] Installing build_map script to /home/common/Documents/argh/my_ws/install/cpmr_ch2/lib/cpmr_ch2
+[1.086s] Installing destroy_map script to /home/common/Documents/argh/my_ws/install/cpmr_ch2/lib/cpmr_ch2
+[1.086s] Installing drive_to_goal script to /home/common/Documents/argh/my_ws/install/cpmr_ch2/lib/cpmr_ch2
+[1.090s] writing list of installed files to '/home/common/Documents/argh/my_ws/build/cpmr_ch2/install.log'
+[1.115s] Invoked command in '/home/common/Documents/argh/my_ws/src/cpmr_ch2' returned '0': PYTHONPATH=/home/common/Documents/argh/my_ws/build/cpmr_ch2/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/common/Documents/argh/my_ws/install/cpmr_ch2/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/cpmr_ch2 build --build-base /home/common/Documents/argh/my_ws/build/cpmr_ch2/build install --record /home/common/Documents/argh/my_ws/build/cpmr_ch2/install.log --single-version-externally-managed install_data
