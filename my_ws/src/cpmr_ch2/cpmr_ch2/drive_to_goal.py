@@ -5,8 +5,7 @@ from rclpy.node import Node
 from rclpy.parameter import Parameter
 from rcl_interfaces.msg import SetParametersResult
 from nav_msgs.msg import Odometry
-from geometry_msgs.msg import Twist, Pose, Point, Quaternion
-from nav_msgs.msg import Odometry
+from geometry_msgs.msg import Twist
 
 def euler_from_quaternion(quaternion):
     """
@@ -31,71 +30,109 @@ def euler_from_quaternion(quaternion):
 
     return roll, pitch, yaw
 
+def wrap_pi(a: float) -> float:
+    """Wrap angle to (-pi, pi]."""
+    return (a + math.pi) % (2 * math.pi) - math.pi
+
 
 class MoveToGoal(Node):
     def __init__(self):
         super().__init__('move_robot_to_goal')
         self.get_logger().info(f'{self.get_name()} created')
 
+        # --- Parameters (position + heading) ---
         self.declare_parameter('goal_x', 0.0)
         self._goal_x = self.get_parameter('goal_x').get_parameter_value().double_value
+
         self.declare_parameter('goal_y', 0.0)
         self._goal_y = self.get_parameter('goal_y').get_parameter_value().double_value
-        self.declare_parameter('goal_t', 0.0)
+
+        self.declare_parameter('goal_t', 0.0)  # desired yaw (radians)
         self._goal_t = self.get_parameter('goal_t').get_parameter_value().double_value
-        self.declare_parameter('goal_max_v', 2.0)
-        self._goal_max_v = self.get_parameter('goal_max_v').get_parameter_value().double_value
-        self.declare_parameter('goal_gain', 5.0)
-        self._goal_gain = self.get_parameter('goal_gain').get_parameter_value().double_value
+
+        # Optional tunables as parameters (nice for runtime tweaks)
+        self.declare_parameter('vel_gain', 5.0)     # linear gain
+        self.declare_parameter('max_vel', 0.2)      # linear saturation [m/s]
+        self.declare_parameter('max_pos_err', 0.05) # [m]
+        self.declare_parameter('ang_gain', 2.0)     # angular gain
+        self.declare_parameter('max_omega', 1.0)    # angular saturation [rad/s]
+        self.declare_parameter('max_theta_err', 0.05)  # [rad]
+
         self.add_on_set_parameters_callback(self.parameter_callback)
         self.get_logger().info(f"initial goal {self._goal_x} {self._goal_y} {self._goal_t}")
 
         self._subscriber = self.create_subscription(Odometry, "/odom", self._listener_callback, 1)
         self._publisher = self.create_publisher(Twist, "/cmd_vel", 1)
 
+    def _listener_callback(self, msg):
+        # Fetch dynamic params each callback so runtime changes take effect
+        vel_gain     = self.get_parameter('vel_gain').value
+        max_vel      = self.get_parameter('max_vel').value
+        max_pos_err  = self.get_parameter('max_pos_err').value
+        ang_gain     = self.get_parameter('ang_gain').value
+        max_omega    = self.get_parameter('max_omega').value
+        max_theta_err= self.get_parameter('max_theta_err').value
 
-    def _listener_callback(self, msg, vel_gain=_goal_gain, max_vel=_goal_max_v, max_pos_err=0.05):
         pose = msg.pose.pose
-
         cur_x = pose.position.x
         cur_y = pose.position.y
-        o = pose.orientation
-        roll, pitchc, yaw = euler_from_quaternion(o)
+        roll, pitch, yaw = euler_from_quaternion(pose.orientation)
         cur_t = yaw
-        
+
         x_diff = self._goal_x - cur_x
         y_diff = self._goal_y - cur_y
-        dist = math.sqrt(x_diff * x_diff + y_diff * y_diff)
+        dist   = math.hypot(x_diff, y_diff)
 
         twist = Twist()
+
         if dist > max_pos_err:
-            x = max(min(x_diff * vel_gain, max_vel), -max_vel)
-            y = max(min(y_diff * vel_gain, max_vel), -max_vel)
-            twist.linear.x = x * math.cos(cur_t) + y * math.sin(cur_t)
-            twist.linear.y = -x * math.sin(cur_t) + y * math.cos(cur_t)
-            self.get_logger().info(f"at ({cur_x},{cur_y},{cur_t}) goal ({self._goal_x},{self._goal_y},{self._goal_t})")
+            # --- POSITION CONTROL (holonomic) ---
+            x_cmd = max(min(x_diff * vel_gain,  max_vel), -max_vel)
+            y_cmd = max(min(y_diff * vel_gain,  max_vel), -max_vel)
+
+            # World -> body transform using current yaw
+            twist.linear.x =  x_cmd * math.cos(cur_t) + y_cmd * math.sin(cur_t)
+            twist.linear.y = -x_cmd * math.sin(cur_t) + y_cmd * math.cos(cur_t)
+
+            # Keep rotation calm while far from goal position
+            twist.angular.z = 0.0
+
+            self.get_logger().debug(
+                f"pos ctrl at ({cur_x:.2f},{cur_y:.2f},{cur_t:.2f}) -> "
+                f"goal ({self._goal_x:.2f},{self._goal_y:.2f},{self._goal_t:.2f})"
+            )
+        else:
+            # --- ORIENTATION CONTROL (use goal_t) ---
+            twist.linear.x = 0.0
+            twist.linear.y = 0.0
+
+            theta_err = wrap_pi(self._goal_t - cur_t)
+            if abs(theta_err) > max_theta_err:
+                w = max(min(ang_gain * theta_err, max_omega), -max_omega)
+                twist.angular.z = w
+                self.get_logger().debug(
+                    f"orient ctrl yaw={cur_t:.2f} -> goal_t={self._goal_t:.2f} err={theta_err:.2f} w={w:.2f}"
+                )
+            else:
+                twist.angular.z = 0.0
+                self.get_logger().info("Goal reached: position and heading.")
+
         self._publisher.publish(twist)
 
     def parameter_callback(self, params):
-        self.get_logger().info(f'move_robot_to_goal parameter callback {params}')
+        # Allow live updates to goal_* and gains
         for param in params:
-            self.get_logger().info(f'move_robot_to_goal processing {param.name}')
             if param.name == 'goal_x' and param.type_ == Parameter.Type.DOUBLE:
                 self._goal_x = param.value
             elif param.name == 'goal_y' and param.type_ == Parameter.Type.DOUBLE:
                 self._goal_y = param.value
             elif param.name == 'goal_t' and param.type_ == Parameter.Type.DOUBLE:
                 self._goal_t = param.value
-            elif param.name == 'goal_max_v' and param.type_ == Parameter.Type.DOUBLE:
-                self._goal_max_v = param.value
-            elif param.name == 'goal_gain' and param.type_ == Parameter.Type.DOUBLE:
-                self._goal_gain = param.value
             else:
-                self.get_logger().warn(f'{self.get_name()} Invalid parameter {param.name}')
-                return SetParametersResult(successful=False)
-            self.get_logger().warn(f"Changing goal {self._goal_x} {self._goal_y} {self._goal_t}")
+                # Let other params (gains) be handled by dynamic get_parameter in callback
+                # If you want to enforce types here, you can extend this section.
+                continue
         return SetParametersResult(successful=True)
-
 
 
 def main(args=None):
@@ -109,4 +146,3 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
-
