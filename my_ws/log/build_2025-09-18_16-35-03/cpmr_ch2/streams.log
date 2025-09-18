@@ -1,0 +1,24 @@
+[1.666s] Invoking command in '/home/common/Documents/myws/my_ws/src/cpmr_ch2': PYTHONPATH=/home/common/Documents/myws/my_ws/build/cpmr_ch2/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/common/Documents/myws/my_ws/install/cpmr_ch2/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/cpmr_ch2 build --build-base /home/common/Documents/myws/my_ws/build/cpmr_ch2/build install --record /home/common/Documents/myws/my_ws/build/cpmr_ch2/install.log --single-version-externally-managed install_data
+[2.300s] running egg_info
+[2.301s] writing ../../build/cpmr_ch2/cpmr_ch2.egg-info/PKG-INFO
+[2.301s] writing dependency_links to ../../build/cpmr_ch2/cpmr_ch2.egg-info/dependency_links.txt
+[2.302s] writing entry points to ../../build/cpmr_ch2/cpmr_ch2.egg-info/entry_points.txt
+[2.302s] writing requirements to ../../build/cpmr_ch2/cpmr_ch2.egg-info/requires.txt
+[2.302s] writing top-level names to ../../build/cpmr_ch2/cpmr_ch2.egg-info/top_level.txt
+[2.303s] reading manifest file '../../build/cpmr_ch2/cpmr_ch2.egg-info/SOURCES.txt'
+[2.305s] writing manifest file '../../build/cpmr_ch2/cpmr_ch2.egg-info/SOURCES.txt'
+[2.305s] running build
+[2.305s] running build_py
+[2.306s] running install
+[2.307s] running install_lib
+[2.307s] running install_data
+[2.308s] running install_egg_info
+[2.310s] removing '/home/common/Documents/myws/my_ws/install/cpmr_ch2/lib/python3.10/site-packages/cpmr_ch2-3.1.0-py3.10.egg-info' (and everything under it)
+[2.311s] Copying ../../build/cpmr_ch2/cpmr_ch2.egg-info to /home/common/Documents/myws/my_ws/install/cpmr_ch2/lib/python3.10/site-packages/cpmr_ch2-3.1.0-py3.10.egg-info
+[2.363s] running install_scripts
+[2.387s] Installing add_obstacle script to /home/common/Documents/myws/my_ws/install/cpmr_ch2/lib/cpmr_ch2
+[2.389s] Installing build_map script to /home/common/Documents/myws/my_ws/install/cpmr_ch2/lib/cpmr_ch2
+[2.389s] Installing destroy_map script to /home/common/Documents/myws/my_ws/install/cpmr_ch2/lib/cpmr_ch2
+[2.389s] Installing drive_to_goal script to /home/common/Documents/myws/my_ws/install/cpmr_ch2/lib/cpmr_ch2
+[2.389s] writing list of installed files to '/home/common/Documents/myws/my_ws/build/cpmr_ch2/install.log'
+[2.486s] Invoked command in '/home/common/Documents/myws/my_ws/src/cpmr_ch2' returned '0': PYTHONPATH=/home/common/Documents/myws/my_ws/build/cpmr_ch2/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/common/Documents/myws/my_ws/install/cpmr_ch2/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/cpmr_ch2 build --build-base /home/common/Documents/myws/my_ws/build/cpmr_ch2/build install --record /home/common/Documents/myws/my_ws/build/cpmr_ch2/install.log --single-version-externally-managed install_data
